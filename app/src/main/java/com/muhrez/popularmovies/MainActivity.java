@@ -158,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         updateMovies(mSort);
     }
 
-
     private void updateMovies(String sortUnit) {
         if (sortUnit.equals(getString(R.string.popular_values))) {
             getMovies(sortUnit);
@@ -166,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             getMovies(sortUnit);
         } else if (sortUnit.equals(getString(R.string.fav_values))) {
             getDataFavorite();
-            //getMovieFavorite();
         }
     }
 
@@ -215,60 +213,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         int scalingFactor = 180;
         int noOfColumns = (int) (dpWidth / scalingFactor);
         return noOfColumns;
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Uri uriContentFav = MovieContract.MovieEntry.CONTENT_URL;
-        CursorLoader loader = new CursorLoader(this,
-                uriContentFav,
-                MovieContract.MovieEntry.MOVIE_COLUMNS,
-                null,
-                null,
-                null);
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        cursor = data;
-        mMovieList = new ArrayList<>();
-        if (cursor!=null && cursor.getCount() != 0) {
-            while (cursor.moveToNext()){
-
-                int idColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_MOVIE_ID);
-                int titleColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_ORIGINAL_TITLE);
-                int ratingColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_VOTE_AVERAGE);
-                int overviewColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_OVERVIEW);
-                int releaseDateColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_RELEASE_DATE);
-                int posterColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_POSTER_PATH);
-                int backdropColumnIndex = cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_BACKDROP_PATH);
-
-
-                long id = cursor.getLong(idColumnIndex);
-                String title = cursor.getString(titleColumnIndex);
-                String poster = cursor.getString(posterColumnIndex);
-                String overview = cursor.getString(overviewColumnIndex);
-                String userRating = cursor.getString(ratingColumnIndex);
-                String releaseDate = cursor.getString(releaseDateColumnIndex);
-                String backdrop = cursor.getString(backdropColumnIndex);
-
-                mMovieList.add(new MovieObject(id, title, poster, overview, userRating, releaseDate, backdrop));
-            }
-            setupRecyclerView();
-        } else {
-            Toast.makeText(this, "You didn't have Favorite", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
-
-    private void getMovieFavorite() {
-        offLineData = true;
-        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
-
     }
 }
