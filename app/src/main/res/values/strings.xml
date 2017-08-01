@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="api_key">f84568cca7a04b3710e0b4ea3d3c4a7f</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="sort_movies_key">movies</string>
+    <string name="sort_movies_labels">Sort Movies</string>
+
+    <string name="popular_labels">Popular</string>
+    <string name="toprated_labels">Top Rated</string>
+    <string name="fav_labels">Favorite</string>
+
+    <string name="popular_values" translatable="false">popular</string>
+    <string name="toprated_values" translatable="false">top_rated</string>
+    <string name="fav_values" translatable="false">Favorite</string>
+
+
+</resources>
